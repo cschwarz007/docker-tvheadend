@@ -23,11 +23,24 @@ APP_NAME="tvheadend"
 docker build --tag "$APP_NAME" .
 
 if confirm_action "Test image?"; then
+	# Set up temporary directory
+	TMP_CONF_DIR=$(mktemp -d "/tmp/$APP_NAME-CONF-XXXXXXXXXX")
+	add_cleanup "rm -rf $TMP_CONF_DIR"
+	TMP_REC_DIR=$(mktemp -d "/tmp/$APP_NAME-REC-XXXXXXXXXX")
+	add_cleanup "rm -rf $TMP_REC_DIR"
+
+	# Apply permissions, UID matches process user
+	APP_UID=1359
+	chown -R "$APP_UID":"$APP_UID" "$TMP_CONF_DIR" "$TMP_REC_DIR"
+
+	# Start the test
 	docker run \
 	--rm \
 	--interactive \
 	--publish 9981:9981/tcp \
 	--publish 9982:9982/tcp \
+	--mount type=bind,source="$TMP_REC_DIR",target="/home/hts/rec" \
+	--mount type=bind,source="$TMP_CONF_DIR",target="/home/hts/.hts" \
 	--name "$APP_NAME" \
 	"$APP_NAME"
 fi
