@@ -1,12 +1,12 @@
 [Unit]
-Description=Minecraft Server Container@%I
+Description=TVHeadend Container
 After=docker.service
 Requires=docker.service
 
 [Service]
-ExecStartPre=-/bin/docker create --rm --interactive --name mcserver_%I --publish %I:25565 --mount type=bind,source=/srv/mcserver_%I,target=/mcserver hetsh/mcserver
-ExecStart=/bin/docker start --attach mcserver_%I
-ExecStop=/bin/sh -c "echo stop | docker attach mcserver_%I"
+ExecStartPre=-/bin/docker create --rm --interactive --name tvheadend --publish 9981:9981 --publish 9982:9982 --mount type=bind,source=/path/to/dvb-devices,target=/path/to/dvb-devices --mount type=bind,source=/srv/hts/conf,target=/home/hts/.hts --mount type=bind,source=/srv/hts/rec,target=/home/hts/rec hetsh/tvheadend
+ExecStart=/bin/docker start --attach tvheadend
+ExecStop=/bin/docker stop tvheadend
 
 [Install]
 WantedBy=multi-user.target
