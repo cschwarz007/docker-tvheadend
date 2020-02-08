@@ -40,7 +40,13 @@ TVH_VERSION=$(curl -L -s "https://pkgs.alpinelinux.org/package/v${IMAGE_VERSION%
 CURRENT_TVH_VERSION=$(cat "Dockerfile" | grep -P -o "$TVH_PKG=\K$TVH_REGEX")
 if [ "$CURRENT_TVH_VERSION" != "$TVH_VERSION" ]; then
 	echo "$TVH_NAME $TVH_VERSION available!"
-	update_version
+
+	# Dont update version if only release counter changed
+	if [ "${CURRENT_TVH_VERSION%-*}" != "${TVH_VERSION%-*}" ]; then
+		update_version "${TVH_VERSION%-*}"
+	else
+		update_release
+	fi
 fi
 
 if ! updates_available; then
