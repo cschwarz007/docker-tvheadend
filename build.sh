@@ -40,7 +40,7 @@ if confirm_action "Test image?"; then
 	--publish 9981:9981/tcp \
 	--publish 9982:9982/tcp \
 	--mount type=bind,source="$TMP_REC_DIR",target="/home/hts/rec" \
-	--mount type=bind,source="$TMP_CONF_DIR",target="/home/hts/.hts" \
+	--mount type=bind,source="$TMP_CONF_DIR",target="/home/hts/.hts/tvheadend" \
 	--name "$APP_NAME" \
 	"$APP_NAME"
 fi
