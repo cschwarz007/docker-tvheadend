@@ -17,10 +17,10 @@ assert_dependency "jq"
 assert_dependency "curl"
 
 # Base image
-update_image "library/alpine" "Alpine" "(\d+\.)+\d+"
+update_image "library/alpine" "Alpine" "\d{8}"
 
 # TV-Headend
-update_pkg "tvheadend" "TV-Headend" "true" "https://pkgs.alpinelinux.org/package/v${_NEW_IMG_VERSION%.*}/community/x86_64" "(\d+\.)+\d+-r\d+"
+update_pkg "tvheadend" "TV-Headend" "true" "https://pkgs.alpinelinux.org/package/edge/community/x86_64" "(\d+\.)+\d+-r\d+"
 
 if ! updates_available; then
 	echo "No updates available."
