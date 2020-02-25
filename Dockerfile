@@ -2,19 +2,23 @@ FROM library/alpine:20200122
 RUN apk add --no-cache \
     tvheadend=4.2.8-r1
 
-ARG APP_USER="hts"
-ARG APP_GROUP="hts"
-RUN addgroup --gid 986 "$APP_GROUP" && \
-    adduser --disabled-password --ingroup "$APP_GROUP" --uid 1359 "$APP_USER"
-USER "$APP_USER"
+# App user
+ARG APP_USER="tvheadend"
+ARG APP_UID=1359
+ARG APP_GID=986
+RUN sed -i "s|$APP_USER:x:100:65533|$APP_USER:x:$APP_UID:$APP_GID|" /etc/passwd && \
+    sed -i "s|video:x:27|video:x:$APP_GID|" /etc/group
 
-ARG CONF_DIR="/home/$APP_USER/.hts/tvheadend"
-VOLUME ["$CONF_DIR"]
+# Volumes
+ARG HOME_DIR="/usr/share/tvheadend"
+ARG DATA_DIR="/tvheadend-data"
+RUN mkdir "$HOME_DIR/.hts" && \
+    ln -s "$DATA_DIR" "$HOME_DIR/.hts/tvheadend"
+VOLUME ["$DATA_DIR"]
 
-ARG REC_DIR="/home/$APP_USER/rec"
-VOLUME ["$REC_DIR"]
-
-EXPOSE 9981/tcp 9982/tcp
 #      HTTP     HTSP
+EXPOSE 9981/tcp 9982/tcp
 
+USER "$APP_USER"
+WORKDIR "$DATA_DIR"
 ENTRYPOINT exec tvheadend -C

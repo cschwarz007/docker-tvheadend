@@ -12,8 +12,8 @@ ExecStartPre=-/bin/docker create \
               --publish 9982:9982 \
               --device /dev/dri \
               --device /dev/dvb \
-              --mount type=bind,source=/etc/tvheadend,target=/home/hts/.hts/tvheadend \
-              --mount type=bind,source=/opt/recordings,target=/home/hts/rec \
+              --mount type=bind,source=/etc/tvheadend,target=/tvheadend-data \
+              --mount type=bind,source=/mnt/rec,target=/mnt/rec \
               hetsh/tvheadend
 ExecStart=/bin/docker start --attach tvheadend
 ExecStop=/bin/docker stop tvheadend

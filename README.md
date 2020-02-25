@@ -24,16 +24,19 @@ Remember to mount persistent storage if you want to keep the configuration.
 
 ## Creating persistent storage
 ```bash
-CONF="/path/to/configuration"
-REC="/path/to/recordings"
-mkdir -p "$CONF" "$REC"
-chown -R 1359:1359 "$CONF" "$REC"
+DATA="/path/to/configuration"
+mkdir -p "$DATA"
+chown -R 1359:1359 "$DATA"
 ```
 `1359` is the numerical id of the user running the server (see Dockerfile).
 The user must have RW access to the configuration and recordings directory.
 Start the server with the additional mount flags:
 ```bash
-docker run --mount type=bind,source=/path/to/configuration,target=/home/hts/.hts/tvheadend --mount type=bind,source=/path/to/recordings,target=/home/hts/rec ...
+docker run --mount type=bind,source=/path/to/configuration,target=/tvheadend-data ...
+```
+Similarly, storage for recordings can be mounted. The path needs to be configured in TVHeadend beforehand:
+```bash
+docker run --mount type=bind,source=/path/to/recordings,target=/path/as/configured ...
 ```
 
 ## Automate startup and shutdown via systemd
@@ -41,7 +44,7 @@ docker run --mount type=bind,source=/path/to/configuration,target=/home/hts/.hts
 systemctl enable tvheadend --now
 ```
 The systemd unit can be found in my [GitHub](https://github.com/Hetsh/docker-tvheadend) repository.
-By default, the systemd service assumes `/etc/tvheadend` for configuration and `/opt/recordings` for recordings.
+By default, the systemd service assumes `/tvheadend-data` for configuration.
 You need to adjust these to suit your setup.
 
 ## Fork Me!
