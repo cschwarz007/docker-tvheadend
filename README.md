@@ -44,7 +44,7 @@ docker run --mount type=bind,source=/path/to/recordings,target=/path/as/configur
 systemctl enable tvheadend --now
 ```
 The systemd unit can be found in my [GitHub](https://github.com/Hetsh/docker-tvheadend) repository.
-By default, the systemd service assumes `/tvheadend-data` for configuration.
+By default, the systemd service assumes `/etc/tvheadend` for configuration.
 You need to adjust these to suit your setup.
 
 ## Fork Me!
