@@ -16,8 +16,8 @@ source libs/docker.sh
 assert_dependency "jq"
 assert_dependency "curl"
 
-# Base image
-update_image "library/alpine" "Alpine" "false" "\d{8}"
+# Alpine Linux
+update_image "library/alpine" "Alpine Linux" "false" "\d{8}"
 
 # TV-Headend
 update_pkg "tvheadend" "TV-Headend" "true" "https://pkgs.alpinelinux.org/package/edge/community/x86_64" "(\d+\.)+\d+-r\d+"
@@ -28,10 +28,10 @@ if ! updates_available; then
 fi
 
 # Perform modifications
-if [ "${1+}" = "--noconfirm" ] || confirm_action "Save changes?"; then
+if [ "${1-}" = "--noconfirm" ] || confirm_action "Save changes?"; then
 	save_changes
 
-	if [ "${1+}" = "--noconfirm" ] || confirm_action "Commit changes?"; then
+	if [ "${1-}" = "--noconfirm" ] || confirm_action "Commit changes?"; then
 		commit_changes
 	fi
 fi
