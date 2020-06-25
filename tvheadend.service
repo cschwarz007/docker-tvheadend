@@ -6,7 +6,6 @@ Requires=docker.service
 [Service]
 ExecStartPre=-/bin/docker create \
               --rm \
-              --interactive \
               --name tvheadend \
               --publish 9981:9981 \
               --publish 9982:9982 \
