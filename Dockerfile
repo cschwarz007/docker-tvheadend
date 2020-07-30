@@ -6,8 +6,8 @@ RUN apk add --no-cache \
 ARG APP_USER="tvheadend"
 ARG APP_UID=1359
 ARG APP_GID=986
-RUN sed -i "s|$APP_USER:x:100:65533|$APP_USER:x:$APP_UID:$APP_GID|" /etc/passwd && \
-    sed -i "s|video:x:27|video:x:$APP_GID|" /etc/group
+RUN sed -i "s|$APP_USER:x:[0-9]\+:[0-9]\+|$APP_USER:x:$APP_UID:$APP_GID|" /etc/passwd && \
+    sed -i "s|video:x:[0-9]\+|video:x:$APP_GID|" /etc/group
 
 # Volumes
 ARG HOME_DIR="/usr/share/tvheadend"
