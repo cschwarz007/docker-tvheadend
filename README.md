@@ -40,12 +40,12 @@ docker run --mount type=bind,source=/path/to/recordings,target=/path/as/configur
 ```
 
 ## Automate startup and shutdown via systemd
+The systemd unit can be found in my GitHub [repository](https://github.com/Hetsh/docker-tvheadend).
 ```bash
 systemctl enable tvheadend --now
 ```
-The systemd unit can be found in my [GitHub](https://github.com/Hetsh/docker-tvheadend) repository.
-By default, the systemd service assumes `/etc/tvheadend` for configuration.
-You need to adjust these to suit your setup.
+By default, the systemd service assumes `/apps/tvheadend` for configuration and `/etc/localtime` for timezone.
+Since this is a personal systemd unit file, you might need to adjust some parameters to suit your setup.
 
 ## Fork Me!
 This is an open project (visit [GitHub](https://github.com/Hetsh/docker-tvheadend)). Please feel free to ask questions, file an issue or contribute to it.
