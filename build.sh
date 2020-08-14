@@ -20,9 +20,11 @@ fi
 
 # Build the image
 APP_NAME="tvheadend"
-docker build --tag "$APP_NAME" .
+APP_TAG="hetsh/$APP_NAME"
+docker build --tag "$APP_TAG" --tag "$APP_TAG:$(git describe --tags --abbrev=0)" .
 
-if confirm_action "Test image?"; then
+# Start the test
+if [ "${1-}" = "--test" ]; then
 	# Set up temporary directories
 	TMP_DATA_DIR=$(mktemp -d "/tmp/$APP_NAME-DATA-XXXXXXXXXX")
 	add_cleanup "rm -rf $TMP_DATA_DIR"
