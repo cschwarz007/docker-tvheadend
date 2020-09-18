@@ -1,4 +1,4 @@
-FROM library/alpine:20200626
+FROM library/alpine:20200917
 RUN apk add --no-cache \
     tvheadend=4.2.8-r3
 
