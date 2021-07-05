@@ -5,7 +5,7 @@ RUN apk add --no-cache \
 # App user
 ARG APP_USER="tvheadend"
 ARG APP_UID=1359
-ARG APP_GID=986
+ARG APP_GID=985
 RUN sed -i "s|$APP_USER:x:[0-9]\+:[0-9]\+|$APP_USER:x:$APP_UID:$APP_GID|" /etc/passwd && \
     sed -i "s|video:x:[0-9]\+|video:x:$APP_GID|" /etc/group
 
