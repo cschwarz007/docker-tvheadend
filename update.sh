@@ -17,7 +17,7 @@ assert_dependency "jq"
 assert_dependency "curl"
 
 # Alpine Linux
-update_image "library/alpine" "Alpine Linux" "false" "\d{8}"
+update_image "amd64/alpine" "Alpine Linux" "false" "\d{8}"
 
 # TV-Headend
 update_pkg "tvheadend" "TV-Headend" "true" "https://pkgs.alpinelinux.org/package/edge/community/x86_64" "(\d+\.)+\d+-r\d+"
