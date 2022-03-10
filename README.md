@@ -1,4 +1,4 @@
-# MCServer
+# TV-Headend
 Super small and simple tvheadend server.
 
 ## Running the server
