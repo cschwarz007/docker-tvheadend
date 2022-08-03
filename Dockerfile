@@ -1,6 +1,6 @@
 FROM amd64/alpine:20220715
 RUN apk add --no-cache \
-        tvheadend=4.3-r0
+        tvheadend=4.3-r1
 
 # App user
 ARG APP_USER="tvheadend"
